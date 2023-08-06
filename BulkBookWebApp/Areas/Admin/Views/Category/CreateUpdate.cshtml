@@ -1,0 +1,37 @@
+﻿@model BulkBook.Models.ViewModels.CategoryVM
+<form method="post" asp-action="CreateUpdate">
+	<input type="hidden" asp-for="Category.Id"/>
+	<div class="border p-3 mt-4">
+		<div class="row pb-3">
+			<h2 class="text-primary">
+				@((Model.Category == null || Model.Category.Id == 0) ? "Create Category" : "Update Category")
+			</h2><hr/>
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="row mb-3">
+			<label asp-for="Category.Name"></label>
+			<input asp-for="Category.Name" class="form-control" />
+			<span class="text-warning" asp-validation-for="Category.Name"></span>
+		</div>
+		<div class="row mb-3">
+			<label asp-for="Category.DisplayOrder"></label>
+			<input asp-for="Category.DisplayOrder" class="form-control" />
+			<span class="text-warning" asp-validation-for="Category.DisplayOrder"></span>
+		</div>
+		@if (Model.Category == null || Model.Category.Id == 0)
+		{
+			<button class="btn btn-success" type="submit">Create</button>
+		}
+		else
+		{
+			<button class="btn btn-success" type="submit">Update</button>
+		}
+	</div>
+	<a asp-action="Index" asp-controller="Category">Back to Category List</a>
+</form>
+
+@section scripts{
+	@{
+		<partial name="_ValidationScriptsPartial"/>
+	}
+}

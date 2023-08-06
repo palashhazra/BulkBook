@@ -1,0 +1,39 @@
+﻿@model BulkBook.Models.ViewModels.CategoryVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-4">
+<div class="row p-3">
+    <div class="col-6">
+            <h2>List of Categories</h2>
+    </div>
+    <div class="col-6 text-end">
+
+            <a class="btn btn-primary" asp-action="CreateUpdate" asp-controller="Category"><i class="bi bi-plus-circle"></i>&nbsp;Create New Category</a>
+            
+    </div>
+</div>
+</div>
+<table class="table table-bordered table table-striped">
+    <thead>
+        <tr>
+            <td>Category Name</td>
+            <td>Display Order</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.Categories)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.DisplayOrder</td>
+                <td role="group">
+                    <a asp-action="CreateUpdate" asp-controller="category" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-controller="category" asp-route-id="@item.Id"><i class="bi bi-trash-fill"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

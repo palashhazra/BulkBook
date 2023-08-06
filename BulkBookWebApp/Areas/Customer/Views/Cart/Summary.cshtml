@@ -1,0 +1,76 @@
+﻿@model BulkBook.Models.ViewModels.CartVM
+@using Microsoft.Extensions.Options
+@inject IOptions<BulkBook.CommonHelper.StripeSettings> Stripe
+
+<form method="post">
+<div class="row">
+	<div class="col-md-8 mb-4">
+		<div class="card mb-4">
+			<div class="card-header py-3">
+				<h5 class="mb-0">Shipping Details</h5>
+			</div>
+			<div class="card-body">
+				<form>
+					<div class="row mb-4">
+						<div class="col">
+							<div class="form-outline">
+								<input type="text" asp-for="@Model.OrderHeader.Name" class="form-control" />
+								<label class="form-label" for="name1">Name</label>
+							</div>
+						</div>
+						<div class="form-outline mb-4">
+							<input type="number" asp-for="@Model.OrderHeader.Phone" class="form-control" />
+							<label class="form-label" for="phone">Phone</label>
+						</div>
+						<div class="form-outline mb-4">
+							<textarea id="Address" asp-for="@Model.OrderHeader.Address" class="form-control" rows="4"></textarea>
+							<label class="form-label" for="Address">Address</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input type="text" asp-for="@Model.OrderHeader.City" class="form-control" />
+							<label class="form-label" for="City">City</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input asp-for="@Model.OrderHeader.State" class="form-control" type="text" rows="4"/>
+							<label class="form-label" for="State">State</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input asp-for="@Model.OrderHeader.PostalCode" type="text" class="form-control" rows="4"/>
+							<label class="form-label" for="PostalCode">Postal Code</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 mb-4">
+		<div class="card mb-4">
+			<div class="card-header py-3">
+				<h5 class="mb-0">Summary</h5>
+			</div>
+			
+			<div class="card-body">
+				<ul class="list-group list-group-flush">
+					@foreach (var details in Model.ListOfCart)
+					{
+					<li class="list-group-item d-flex justify-content-between align-items-center border-2">
+						<span>@details.Product.Name</span>
+							<span>Qty: @details.Count</span>
+							<span>@(((details.Count) * (details.Product.Price)).ToString("c"))</span>
+					</li>
+					}
+					<li class="list-group-item d-flex justify-content-between align-items-center border-2">
+						<div>
+							<strong>Total Amount</strong>
+							<strong><p class="mb-0">(Including GST)</p></strong>
+						</div>
+						<span><strong>@Model.OrderHeader.OrderTotal.ToString("c")</strong></span>
+					</li>
+				</ul>
+				<button class="btn btn-primary btn-lg btn-block" type="submit">Make Purchase</button>
+			</div>
+			
+		</div>
+	</div>
+</div>
+</form>
