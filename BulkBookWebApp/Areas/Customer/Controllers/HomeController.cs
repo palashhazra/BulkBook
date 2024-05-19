@@ -22,7 +22,7 @@ namespace BulkBookWebApp.Areas.Customer.Controllers
         [HttpGet] 
 		public IActionResult Index()
         {
-           
+            
             _logger.LogInformation("Process finished");
             IEnumerable<Product> products=_unitOfWork.Product.GetAll(includeProperties:"Category");
             return View(products);
